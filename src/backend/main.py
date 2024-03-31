@@ -1,8 +1,4 @@
-from typing import List
-from data.user import User
-from data.review import Review, Rating
 import usecases
+from data.appdata import AppData
 
-
-users: List[User] = []
-reviews: List[Review] = []
+appdata: AppData = AppData([], [])
