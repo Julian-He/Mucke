@@ -19,6 +19,9 @@ async def library():
     """
     return HTMLResponse(html_content)
 
+@api.post("/login", response_class=HTMLResponse)
+async def login(request: Request):
+    pass
 
 api.mount("/frontend", api)
 api.mount("/", StaticFiles(directory="src/frontend", html=True))

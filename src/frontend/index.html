@@ -4,78 +4,89 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Mucke</title>
-        <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
         <link href="./css/main.css" rel="stylesheet"/>
     </head>
 
     <body class="bg-dark">
+        <div class="d-flex flex-column min-vh-100 min-vw-100">
 
-        <nav class="navbar navbar-dark navbar-expand-md bg-primary">
+            <nav class="navbar navbar-dark navbar-expand-md bg-primary">
 
-            <div class="container-fluid">
+                <div class="container-fluid">
 
-                <a class="navbar-brand text-white">Mucke!</a>
+                    <a class="navbar-brand text-white">Mucke!</a>
 
-                <button class="navbar-toggler" 
-                        type="button" 
-                        data-bs-toggle="collapse" 
-                        data-bs-target="#navbarNavDropdown" 
-                        aria-controls="navbarNavDropdown" 
-                        aria-expanded="false" 
-                        aria-label="Toggle navigation">
+                    <button class="navbar-toggler" 
+                            type="button" 
+                            data-bs-toggle="collapse" 
+                            data-bs-target="#navbarNavDropdown" 
+                            aria-controls="navbarNavDropdown" 
+                            aria-expanded="false" 
+                            aria-label="Toggle navigation">
 
-                        <span class="navbar-toggler-icon"></span>
-                </button>
+                            <span class="navbar-toggler-icon"></span>
+                    </button>
 
-                <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" 
-                                hx-get="/library"
-                                hx-trigger="click"
-                                hx-target="#mainContent"
-                                hx-swap="outerHTML">
-                               Library</a>
-                        </li>
+                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link disabled" 
+                                    hx-get="/library"
+                                    hx-trigger="click"
+                                    hx-target="#mainContent"
+                                    hx-swap="outerHTML"
+                                    aria-disabled="true">
+                                Library</a>
+                            </li>
 
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" 
-                               id="reviewDropdown" 
-                               role="button"
-                               data-bs-toggle="dropdown"
-                               aria-expanded="false">
-                            Reviews
-                            </a>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle disabled" 
+                                id="reviewDropdown" 
+                                role="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                                aria-disabled="true">
+                                Reviews
+                                </a>
 
-                            <ul class="dropdown-menu" aria-labelledby="reviewDropdown">
-                                <li><a class="dropdown-item">Your reviews</a></li>
-                                <li><a class="dropdown-divider"></a></li>
-                                <li><a class="dropdown-item">Start new review</a></li>
-                            </ul>
-                        </li>
+                                <ul class="dropdown-menu" aria-labelledby="reviewDropdown">
+                                    <li><a class="dropdown-item">Your reviews</a></li>
+                                    <li><a class="dropdown-divider"></a></li>
+                                    <li><a class="dropdown-item">Start new review</a></li>
+                                </ul>
+                            </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link">Friends</a>
-                        </li>
-                    </ul>
+                            <li class="nav-item">
+                                <a class="nav-link disabled" 
+                                aria-disabled="true">
+                                Friends
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
                 </div>
 
+            </nav>
+
+            <div class="container-lg d-flex align-items-center justify-content-center flex-grow-1" 
+                 id="mainContent">
+                <form hx-post="/login"
+                      hx-target="#mainContent"
+                      hx-swap="outerHTML">
+                      <label for="nameInput" class="form-label text-white">Name</label>
+                      <input id="nameInput" type="name" name="name" class="form-control form-control-lg">
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
             </div>
-
-
-        </nav>
-
-        <div class="container-md" id="mainContent">
-
             
+            <script src="./bootstrap/js/bootstrap.bundle.js"></script>
+            <script src="https://unpkg.com/htmx.org@1.9.10" 
+                    integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" 
+                    crossorigin="anonymous">
+            </script>
+        </body>
 
-        </div>
-        
-        <script src="/bootstrap/js/bootstrap.bundle.js"></script>
-        <script src="https://unpkg.com/htmx.org@1.9.10" 
-                integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" 
-                crossorigin="anonymous">
-        </script>
-    </body>
-
+</div>
 </html>
