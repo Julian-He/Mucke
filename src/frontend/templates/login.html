@@ -1,14 +1,6 @@
 <div class="container-md d-flex flex-column flex-grow-1"
      id="mainContent">
 
-    {% if name_taken %}
-    <div class="row d-flex flex-grow-1 justify-content-center align-items-center">
-        <div class="alert alert-danger col-8" role="alert">
-            Name is taken, please try a different one!
-        </div>
-    </div>
-    {% endif %}
-
     <div class="row d-flex flex-grow-1 justify-content-center align-items-center">
         <div class="col-8">
             <form hx-post="/homepage"
@@ -20,5 +12,13 @@
             </form>
         </div>
     </div>
+
+    {% if name_taken %}
+    <div class="row d-flex justify-content-center align-items-center">
+        <div class="alert alert-danger col-8" role="alert">
+            Name is taken, please try a different one!
+        </div>
+    </div>
+    {% endif %}
 
 </div>
