@@ -77,15 +77,10 @@
             </nav>
 
             <div class="container-lg d-flex align-items-center justify-content-center flex-grow-1" 
-                 id="mainContent">
-
-                <form hx-post="/login"
-                      hx-target="#mainContent"
-                      hx-swap="outerHTML">
-                      <label for="nameInput" class="form-label text-white">Name</label>
-                      <input id="nameInput" type="name" name="name" class="form-control form-control-lg">
-                      <button type="submit" class="btn btn-primary mt-3">Login</button>
-                </form>
+                 id="mainContent"
+                 hx-get="/login"
+                 hx-trigger="load"
+                 hx-swap="innerHTML">
 
             </div>
             
