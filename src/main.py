@@ -13,7 +13,9 @@ templates: Jinja2Templates = Jinja2Templates("frontend/templates")
 
 @api.get("/login", response_class=HTMLResponse)
 async def root(request: Request):
-    return templates.TemplateResponse(request=request, name="login.html")
+    return templates.TemplateResponse(
+        request=request, name="login.html", context={"name_taken": False}
+    )
 
 
 @api.get("/library", response_class=HTMLResponse)
@@ -32,10 +34,13 @@ async def library(request: Request):
 @api.post("/homepage", response_class=HTMLResponse)
 async def login(request: Request, name: str = Form(...)):
 
-    if name not in [user.name for user in users]:
-        return HTTPException(400, "bad")
+    if name in [user.name for user in users]:
+        return templates.TemplateResponse(
+            request=request, name="login.html", context={"name_taken": True}
+        )
 
     else:
+        users.append(User(name, []))
         return templates.TemplateResponse(
             request=request, name="homepage.html", context={"header": name}
         )
