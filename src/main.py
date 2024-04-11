@@ -46,5 +46,22 @@ async def login(request: Request, name: str = Form(...)):
         )
 
 
+@api.post("/search-users", response_class=HTMLResponse)
+async def search_users(request: Request, name: str = Form(...)):
+    return templates.TemplateResponse(
+        request=request,
+        name="userList.HTML",
+        context={
+            "users": {
+                User("exampleUser1", []),
+                User("exampleUser2", []),
+                User("exampleUser3", []),
+                User("exampleUser4", []),
+                User("exampleUser5", []),
+            }
+        },
+    )
+
+
 api.mount("/frontend", api)
 api.mount("/", StaticFiles(directory="frontend", html=True))

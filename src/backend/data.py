@@ -20,14 +20,22 @@ class Rating:
     score: int
     notes: str
 
+
 @dataclass
 class ReleaseReview(Review):
     release: Release
     suggested_by: User
     scores: Dict[User, Rating]
-    
+
+
 @dataclass
 class ReviewProcess:
     host: User
     participants: List[User]
     reviews: List[ReleaseReview]
+
+
+@dataclass
+class AppData:
+    users: List[User]
+    review_processes: List[ReviewProcess]

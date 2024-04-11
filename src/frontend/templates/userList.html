@@ -1,0 +1,11 @@
+<div class="list-group overflow-auto m-2" style="max-height: 200px;">
+
+    {% for user in users %}
+    <div class="list-group-item position-relative">
+        {{ user.name }}
+        <button class="btn btn-sm btn-primary m-1 position-absolute top-0 end-0">
+            +
+        </button>
+    </div>
+
+</div>
