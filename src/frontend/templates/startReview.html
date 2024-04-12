@@ -1,133 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Mucke</title>
-        <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
-        <link href="../css/main.css" rel="stylesheet"/>
-    </head>
+<div id="mainContent"
+     class="container-fluid d-flex flex-column flex-grow-1">
 
-    <body class="bg-dark">
-        <div class="d-flex flex-column min-vh-100 min-vw-100">
+    <div class="row container-fluid d-flex flex-grow-1 align-items-center justify-content-center">
+    <div class="col-md-5">
+        <form id="searchParameters">
+            <label for="releaseInput" class="form-label m-1 text-white">Release</label>
+            <input type="text" id="releaseInput" name="releaseInput" class="form-control">
 
-            <nav class="navbar navbar-dark navbar-expand-md bg-primary">
+            <label for="artistInput" class="form-label m-1 text-white">Artist</label>
+            <input type="text" id="artistInput" name="artistInput" class="form-control">
 
-                <div class="container-fluid">
+            <label for="genreInput" class="form-label m-1 text-white">Genre</label>
+            <input type="text" id="releaseInput" name="releaseInput" class="form-control">
 
-                    <a class="navbar-brand text-white"
-                       id="muckeNav">
-                       Mucke!</a>
+            <button class="btn btn-primary"
+                    hx-post="/realease-search"
+                    hx-target="#searchResults"
+                    hx-swap="outerHTML">
+                    Search</button>
+        </form>
+    </div>
 
-                    <button class="navbar-toggler" 
-                            type="button" 
-                            data-bs-toggle="collapse" 
-                            data-bs-target="#navbarNavDropdown" 
-                            aria-controls="navbarNavDropdown" 
-                            aria-expanded="false" 
-                            aria-label="Toggle navigation">
+    <div class="col-md-5">
+        <div class="card p-2 text-bg-primary">
+            <h4 class="card-title" id="searchResults">Results</h4>
 
-                            <span class="navbar-toggler-icon"></span>
-                    </button>
-
-                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                        <ul class="navbar-nav">
-
-                            <li class="nav-item">
-                                <a class="nav-link disabled"
-                                    id="libraryNav"
-                                    hx-get="/library"
-                                    hx-trigger="click"
-                                    hx-target="#mainContent"
-                                    hx-swap="outerHTML"
-                                    aria-disabled="true">
-                                Library</a>
-                            </li>
-
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle disabled" 
-                                id="reviewDropdownNav" 
-                                role="button"
-                                data-bs-toggle="dropdown"
-                                aria-expanded="false"
-                                aria-disabled="true">
-                                Reviews
-                                </a>
-
-                                <ul class="dropdown-menu" aria-labelledby="reviewDropdown">
-                                    <li><a class="dropdown-item">Your reviews</a></li>
-                                    <li><a class="dropdown-divider"></a></li>
-                                    <li><a class="dropdown-item">Start new review</a></li>
-                                </ul>
-                            </li>
-
-                            <li class="nav-item">
-                                <a id="friendsNav" 
-                                   class="nav-link disabled" 
-                                   aria-disabled="true">
-                                Friends
-                                </a>
-                            </li>
-
-                        </ul>
+            <form id="releasePick">
+                <div class="row">
+                    <div class="col-1">
+                        <input type="radio" name="releaseChoice"> 
                     </div>
-
+                    <div class="col d-flex flex-grow-1">
+                        <label for="releaseChoice" class="form-control">Artist - Album</label>
+                    </div>
                 </div>
-
-            </nav>
-
-            <div id="mainContent"
-                 class="container-fluid d-flex flex-column flex-grow-1">
-
-                 <div class="row container-fluid d-flex flex-grow-1 align-items-center justify-content-center">
-                    <div class="col-md-5">
-                        <form id="searchParameters">
-                            <label for="releaseInput" class="form-label m-1">Release</label>
-                            <input type="text" id="releaseInput" name="releaseInput" class="form-control">
-
-                            <label for="artistInput" class="form-label m-1">Artist</label>
-                            <input type="text" id="artistInput" name="artistInput" class="form-control">
-
-                            <label for="genreInput" class="form-label m-1">Genre</label>
-                            <input type="text" id="releaseInput" name="releaseInput" class="form-control">
-                        </form>
-                    </div>
-
-                    <div class="col-md-5">
-                        <div class="card p-2 text-bg-primary">
-                            <h4 class="card-title">Results</h4>
-
-                            <ul class="list-group">
-                                <li class="list-group-item">Album - Artist</li>
-                                <li class="list-group-item">Album - Artist</li>
-                                <li class="list-group-item">Album - Artist</li>
-                            </ul>
-
-                        </div>
-                    </div>
-                 </div>
-
-                 <div class="row p-2 d-flex justify-content-center align-items-center">
-                    <div class="col-sm-4 d-flex justify-content-center">
-                        <button class="btn btn-primary"
-                                hx-post="/start-review"
-                                hx-target="#mainContent"
-                                hx-swap="outerHTML"
-                                hx-include="searchParameters">
-                            Start Review
-                        </button>
-                    </div>
-                 </div>
-
-            </div>
-
-            <script src="../bootstrap/js/bootstrap.bundle.js"></script>
-            <script src="https://unpkg.com/htmx.org@1.9.10" 
-                    integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" 
-                    crossorigin="anonymous">
-            </script>
+            </form>
 
         </div>
+    </div>
+    </div>
 
-    </body>
-</html>
+    <div class="row p-2 d-flex justify-content-center align-items-center">
+    <div class="col-sm-4 d-flex justify-content-center">
+        <button class="btn btn-primary"
+                hx-post="/start-review"
+                hx-target="#mainContent"
+                hx-swap="outerHTML"
+                hx-include="releasePick">
+            Start Review
+        </button>
+    </div>
+    </div>
+
+</div>
