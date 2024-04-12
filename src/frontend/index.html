@@ -57,7 +57,11 @@
                                 <ul class="dropdown-menu" aria-labelledby="reviewDropdown">
                                     <li><a class="dropdown-item">Your reviews</a></li>
                                     <li><a class="dropdown-divider"></a></li>
-                                    <li><a class="dropdown-item">Start new review</a></li>
+                                    <li><a class="dropdown-item"
+                                           hx-get="/start-review"
+                                           hx-target="#mainContent"
+                                           hx-swap="outerHTML">
+                                        Start new review</a></li>
                                 </ul>
                             </li>
 
