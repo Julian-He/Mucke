@@ -63,5 +63,10 @@ async def search_users(request: Request, name: str = Form(...)):
     )
 
 
+@api.get("/start-review", response_class=HTMLResponse)
+async def start_review(request: Request):
+    return FileResponse("./frontend/templates/startReview.html")
+
+
 api.mount("/frontend", api)
 api.mount("/", StaticFiles(directory="frontend", html=True))
