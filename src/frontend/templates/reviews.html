@@ -1,103 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Mucke</title>
-        <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
-        <link href="../css/main.css" rel="stylesheet"/>
-    </head>
-
-    <body class="bg-dark">
-        <div class="d-flex flex-column min-vh-100 min-vw-100">
-
-            <nav class="navbar navbar-dark navbar-expand-md bg-primary">
-
-                <div class="container-fluid">
-
-                    <a class="navbar-brand text-white"
-                       id="muckeNav">
-                       Mucke!</a>
-
-                    <button class="navbar-toggler" 
-                            type="button" 
-                            data-bs-toggle="collapse" 
-                            data-bs-target="#navbarNavDropdown" 
-                            aria-controls="navbarNavDropdown" 
-                            aria-expanded="false" 
-                            aria-label="Toggle navigation">
-
-                            <span class="navbar-toggler-icon"></span>
+<div id="mainContent" class="container-fluid d-flex justify-content-center">
+    <div class="col-md-8">
+        <div class="card text-bg-primary m-2 d-flex flex-grow-1">
+            <h3 class="card-title m-1">Review invites</h3>
+            <div class="list-group m-2 d-flex flex-grow-1">
+                {% for review in reviews %}
+                <div class="list-group-item m-1 d-flex align-items-center">
+                    <p class="card-text flex-grow-1">{{ review.host.name }}</p>
+                    <button class="btn btn-primary m-1">
+                        Join
                     </button>
-
-                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                        <ul class="navbar-nav">
-
-                            <li class="nav-item">
-                                <a class="nav-link disabled"
-                                    id="libraryNav"
-                                    hx-get="/library"
-                                    hx-trigger="click"
-                                    hx-target="#mainContent"
-                                    hx-swap="outerHTML"
-                                    aria-disabled="true">
-                                Library</a>
-                            </li>
-
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle disabled" 
-                                id="reviewDropdownNav" 
-                                role="button"
-                                data-bs-toggle="dropdown"
-                                aria-expanded="false"
-                                aria-disabled="true">
-                                Reviews
-                                </a>
-
-                                <ul class="dropdown-menu" aria-labelledby="reviewDropdown">
-                                    <li><a class="dropdown-item">Your reviews</a></li>
-                                    <li><a class="dropdown-divider"></a></li>
-                                    <li><a class="dropdown-item"
-                                           hx-get="/start-review"
-                                           hx-target="#mainContent"
-                                           hx-swap="outerHTML">
-                                        Start new review</a></li>
-                                </ul>
-                            </li>
-
-                        </ul>
-                    </div>
-
                 </div>
-
-            </nav>
-
-            <div id="mainContent" class="container-fluid d-flex justify-content-center">
-                <div class="col-md-8">
-                    <div class="card text-bg-primary m-2 d-flex flex-grow-1">
-                        <h3 class="card-title m-1">Review invites</h3>
-                        <div class="list-group m-2 d-flex flex-grow-1">
-                            <div class="list-group-item position-absolute d-flex flex-grow-1">
-                                <p class="card-text">User1</p>
-                                <button class="btn btn-primary m-1 position-relative top-0 end-0">
-                                    Join
-                                </button>
-                            </div>
-        
-                        </div>
-    
-                    </div>
-                </div>
+                {% endfor %}
 
             </div>
 
-            <script src="../bootstrap/js/bootstrap.bundle.js"></script>
-            <script src="https://unpkg.com/htmx.org@1.9.10" 
-                    integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" 
-                    crossorigin="anonymous">
-            </script>
-
         </div>
+    </div>
 
-    </body>
-</html>
+</div>
