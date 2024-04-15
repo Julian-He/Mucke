@@ -2,48 +2,34 @@
      class="container-fluid d-flex flex-column flex-grow-1">
 
     <div class="row container-fluid d-flex flex-grow-1 align-items-center justify-content-center">
-    <div class="col-md-5">
-        <form id="searchParameters">
-            <label for="releaseInput" class="form-label m-1 text-white">Release</label>
-            <input type="text" id="releaseInput" name="releaseInput" class="form-control">
+        <div class="col-md-5">
+            <form id="searchParameters">
+                <label for="releaseInput" class="form-label m-1 text-white">Release</label>
+                <input type="text" id="releaseInput" name="releaseInput" class="form-control">
 
-            <label for="artistInput" class="form-label m-1 text-white">Artist</label>
-            <input type="text" id="artistInput" name="artistInput" class="form-control">
+                <label for="artistInput" class="form-label m-1 text-white">Artist</label>
+                <input type="text" id="artistInput" name="artistInput" class="form-control">
 
-            <label for="genreInput" class="form-label m-1 text-white">Genre</label>
-            <input type="text" id="releaseInput" name="releaseInput" class="form-control">
+                <label for="genreInput" class="form-label m-1 text-white">Genre</label>
+                <input type="text" id="releaseInput" name="releaseInput" class="form-control">
 
-            <button class="btn btn-primary"
-                    hx-post="/realease-search"
-                    hx-target="#searchResults"
-                    hx-swap="outerHTML">
-                    Search</button>
-        </form>
-    </div>
-
-    <div class="col-md-5">
-        <div class="card p-2 text-bg-primary">
-            <h4 class="card-title" id="searchResults">Results</h4>
-
-            <form id="releasePick">
-                <div class="row">
-                    <div class="col-1">
-                        <input type="radio" name="releaseChoice"> 
-                    </div>
-                    <div class="col d-flex flex-grow-1">
-                        <label for="releaseChoice" class="form-control">Artist - Album</label>
-                    </div>
-                </div>
+                <button class="btn btn-primary"
+                        hx-post="/realease-search"
+                        hx-target="#searchResults"
+                        hx-swap="outerHTML">
+                        Search</button>
             </form>
+        </div>
+
+        <div id="searchResults" hidden="true">
 
         </div>
-    </div>
     </div>
 
     <div class="row p-2 d-flex justify-content-center align-items-center">
     <div class="col-sm-4 d-flex justify-content-center">
         <button class="btn btn-primary"
-                hx-post="/start-review"
+                hx-post="/review"
                 hx-target="#mainContent"
                 hx-swap="outerHTML"
                 hx-include="releasePick">

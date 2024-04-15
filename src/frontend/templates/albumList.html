@@ -1,0 +1,19 @@
+<div class="col-md-5" id="searchResults">
+    <div class="card p-2 text-bg-primary">
+        <h4 class="card-title" id="searchResults">Results</h4>
+
+        <form id="releasePick">
+            {% for release in releases %}
+            <div class="row">
+                <div class="col-1">
+                    <input type="radio" name="releaseChoice"> 
+                </div>
+                <div class="col d-flex flex-grow-1">
+                    <label for="releaseChoice" class="form-control">{{ release.artist }} - {{ release.title }}</label>
+                </div>
+            </div>
+            {% endfor %}
+        </form>
+
+    </div>
+</div>
