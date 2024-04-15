@@ -1,7 +1,12 @@
 from dataclasses import dataclass
 from abc import ABC
 from typing import Dict, List
-from discogs_client import Release
+
+
+@dataclass
+class Album:
+    title: str
+    artist: str
 
 
 @dataclass
@@ -22,8 +27,8 @@ class Rating:
 
 
 @dataclass
-class ReleaseReview(Review):
-    release: Release
+class AlbumReview(Review):
+    album: Album
     suggested_by: User
     scores: Dict[User, Rating]
 
@@ -32,7 +37,7 @@ class ReleaseReview(Review):
 class ReviewProcess:
     host: User
     participants: List[User]
-    reviews: List[ReleaseReview]
+    reviews: List[AlbumReview]
 
 
 @dataclass
