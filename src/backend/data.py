@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from abc import ABC
 from typing import Dict, List
+from uuid import UUID, uuid4
 
 
 @dataclass
@@ -9,9 +10,9 @@ class Album:
     artist: str
 
 
-@dataclass
+@dataclass(kw_only=True)
 class Review(ABC):
-    pass
+    id: UUID = uuid4()
 
 
 @dataclass
@@ -38,6 +39,7 @@ class ReviewProcess:
     host: User
     participants: List[User]
     reviews: List[AlbumReview]
+    id: UUID = uuid4()
 
 
 @dataclass
