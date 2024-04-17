@@ -104,6 +104,30 @@ async def add_user_to_review(
     )
 
 
+@api.get("/reviews", response_class=HTMLResponse)
+async def reviews(request: Request, user: str):
+    person: User = search.search_users(appdata, user)[0]
+    return templates.TemplateResponse(
+        request=request,
+        name="reviews.html",
+        context={
+            "userName": user,
+            "processes": [
+                process
+                for process in appdata.review_processes
+                if person in process.participants
+            ],
+        },
+    )
+
+
+@api.post("/review/{review_id}", response_class=HTMLResponse)
+async def view_review(request: Request, review_id: str):
+    return templates.TemplateResponse(
+        request=request, name="startReview.html", context={"username": "test"}
+    )
+
+
 api.mount("/frontend", api)
 api.mount(
     "/",

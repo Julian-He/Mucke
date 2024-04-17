@@ -1,13 +1,22 @@
 <div id="mainContent" class="container-fluid d-flex justify-content-center">
+    <div hidden="true" id="data">
+        <input type="hidden" name="user" value="{{ userName }}">
+    </div>
+
     <div class="col-md-8">
         <div class="card text-bg-primary m-2 d-flex flex-grow-1">
-            <h3 class="card-title m-1">Review invites</h3>
+            <h3 class="card-title m-1">Your Reviews</h3>
             <div class="list-group m-2 d-flex flex-grow-1">
-                {% for review in reviews %}
+                
+                {% for process in processes %}
                 <div class="list-group-item m-1 d-flex align-items-center">
-                    <p class="card-text flex-grow-1">{{ review.host.name }}</p>
-                    <button class="btn btn-primary m-1">
-                        Join
+                    <p class="card-text flex-grow-1">{{ process.host.name }}</p>
+                    <button class="btn btn-primary m-1"
+                            hx-post="/review/{{'{process.id}'}}"
+                            hx-target="#mainContent"
+                            hx-swap="outerHTML"
+                            hx-include="#data">
+                        View Review
                     </button>
                 </div>
                 {% endfor %}

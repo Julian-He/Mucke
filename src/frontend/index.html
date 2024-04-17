@@ -56,7 +56,12 @@
                                 </a>
 
                                 <ul class="dropdown-menu" aria-labelledby="reviewDropdown">
-                                    <li><a class="dropdown-item">Your reviews</a></li>
+                                    <li><a class="dropdown-item"
+                                           hx-get="/reviews"
+                                           hx-target="#mainContent"
+                                           hx-swap="outerHTML"
+                                           hx-include="#user">
+                                        Your reviews</a></li>
                                     <li><a class="dropdown-divider"></a></li>
                                     <li><a class="dropdown-item"
                                            hx-get="/start-review"
