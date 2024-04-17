@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from abc import ABC
 from typing import Dict, List
 from uuid import UUID, uuid1
@@ -16,7 +16,7 @@ class Album:
 
 @dataclass(kw_only=True)
 class Review(ABC):
-    id: UUID = get_id()
+    id: UUID = field(default_factory=get_id)
 
 
 @dataclass
@@ -43,7 +43,7 @@ class ReviewProcess:
     host: User
     participants: List[User]
     reviews: List[AlbumReview]
-    id: UUID = get_id()
+    id: UUID = field(default_factory=get_id)
 
 
 @dataclass
