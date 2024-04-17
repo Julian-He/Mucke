@@ -1,7 +1,11 @@
 from dataclasses import dataclass
 from abc import ABC
 from typing import Dict, List
-from uuid import UUID, uuid4
+from uuid import UUID, uuid1
+
+
+def get_id() -> UUID:
+    return uuid1()
 
 
 @dataclass
@@ -12,7 +16,7 @@ class Album:
 
 @dataclass(kw_only=True)
 class Review(ABC):
-    id: UUID = uuid4()
+    id: UUID = get_id()
 
 
 @dataclass
@@ -39,7 +43,7 @@ class ReviewProcess:
     host: User
     participants: List[User]
     reviews: List[AlbumReview]
-    id: UUID = uuid4()
+    id: UUID = get_id()
 
 
 @dataclass
