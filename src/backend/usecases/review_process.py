@@ -7,3 +7,9 @@ def start_review_process(appdata: AppData, host: User, hosts_pick: Album) -> UUI
     appdata.review_processes.append(review)
 
     return review.id
+
+
+def add_user(appdata: AppData, process_id: UUID, user: User) -> None:
+    for process in appdata.review_processes:
+        if process.id == process_id:
+            process.participants.append(user)

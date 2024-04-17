@@ -3,6 +3,10 @@
 <div id="mainContent"
      class="container-fluid d-flex flex-grow-1 flex-column">
 
+    <div hidden="true" id="processID">
+        <input type="hidden" id="processID" name="processID" value="{{ review_process.id }}"/>
+    </div>
+
     <div class="row">
         <div class="col d-flex justify-content-center">
 
@@ -24,26 +28,24 @@
 
     <div class="row d-flex justify-content-center">
         <div class="col-sm-5 collapse collapse-horizontal" id="addUserCollapse">
-            <form>
-                <div class="card p-2 text-bg-primary">
-                    <div hidden="true" 
-                            id="userList"
-                            >
-                    </div>
+            <div class="card p-2 text-bg-primary">
+                    <div hidden="true" id="userList"></div>
 
+                <form>
                     <label for="userNameInput" class="form-label p-2">
                         Username
                     </label>
                     <input type="search" 
                             class="form-control" 
                             id="userNameInput"
-                            name="search"
+                            name="name"
                             hx-post="/search-users"
                             hx-target="#userList"
                             hx-trigger="input changed delay:500ms"
                             hx-swap="outerHTML">
-                </div>
-            </form>
+                </form>
+                
+            </div>
         </div>
     </div>
 

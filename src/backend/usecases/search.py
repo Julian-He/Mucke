@@ -8,7 +8,7 @@ def search_users(appdata: AppData, search: str) -> List[User]:
     result: List[User] = []
 
     for user in appdata.users:
-        if user.name == search:
+        if user.name.upper() == search.upper():
             result.append(user)
 
     return result

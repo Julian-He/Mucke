@@ -1,3 +1,4 @@
+from uuid import UUID
 import uvicorn
 from typing import List
 from fastapi import FastAPI, HTTPException, Request, Form
@@ -72,7 +73,34 @@ async def start_review_process(
     review_proc = search.search_review_processes(appdata, id)
 
     return templates.TemplateResponse(
-        request=request, name="review.html", context={"review_process": review_proc}
+        request=request,
+        name="reviewProcess.html",
+        context={"review_process": review_proc},
+    )
+
+
+@api.post("/search-users", response_class=HTMLResponse)
+async def search_users(request: Request, name: str = Form(...)):
+    return templates.TemplateResponse(
+        request=request,
+        name="userList.html",
+        context={"users": search.search_users(appdata, name)},
+    )
+
+
+@api.post("/add-user-to-review", response_class=HTMLResponse)
+async def add_user_to_review(
+    request: Request, processID: str = Form(...), userName: str = Form(...)
+):
+    review_process.add_user(
+        appdata, UUID(processID), search.search_users(appdata, userName)[0]
+    )
+    return templates.TemplateResponse(
+        request=request,
+        name="reviewProcess.html",
+        context={
+            "review_process": search.search_review_processes(appdata, UUID(processID))
+        },
     )
 
 
