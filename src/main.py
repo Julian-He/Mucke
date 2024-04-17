@@ -4,9 +4,10 @@ from fastapi.responses import FileResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
-from backend.data import User
+from backend.data import AppData, ReviewProcess, User, Album
+from backend.usecases import review_process
 
-users: List[User] = []
+appdata = AppData([], [])
 api = FastAPI()
 templates: Jinja2Templates = Jinja2Templates("frontend/templates")
 
@@ -33,40 +34,37 @@ async def library(request: Request):
 
 @api.post("/homepage", response_class=HTMLResponse)
 async def login(request: Request, name: str = Form(...)):
-
-    if name in [user.name for user in users]:
+    if name in [user.name for user in appdata.users]:
         return templates.TemplateResponse(
             request=request, name="login.html", context={"name_taken": True}
         )
 
     else:
-        users.append(User(name, []))
+        appdata.users.append(User(name, []))
         return templates.TemplateResponse(
-            request=request, name="homepage.html", context={"header": name}
+            request=request,
+            name="homepage.html",
+            context={"username": name, "header": name},
         )
 
 
-@api.post("/search-users", response_class=HTMLResponse)
-async def search_users(request: Request, name: str = Form(...)):
+@api.get("/start-review", response_class=HTMLResponse)
+async def start_review(request: Request, user: str):
     return templates.TemplateResponse(
         request=request,
-        name="userList.HTML",
-        context={
-            "users": {
-                User("exampleUser1", []),
-                User("exampleUser2", []),
-                User("exampleUser3", []),
-                User("exampleUser4", []),
-                User("exampleUser5", []),
-            }
-        },
+        name="startReview.html",
+        context={"username": user},
     )
 
 
-@api.get("/start-review", response_class=HTMLResponse)
-async def start_review(request: Request):
-    return FileResponse("./frontend/templates/startReview.html")
-
-
+# @api.post("/start-review-process", response_class=HTMLResponse)
+# async def start_review_process(
+#    request: Request, album: str = Form(...), artist: str = Form(...)
+# ):
+#    review: ReviewProcess = review_process.start_review_process(appdata, , Album(title, artist))
+#
+#    return templates.TemplateResponse(request=request, name="review.html", context={})
+#
+#
 api.mount("/frontend", api)
 api.mount("/", StaticFiles(directory="frontend", html=True))

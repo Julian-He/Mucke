@@ -40,6 +40,7 @@
                                     hx-trigger="click"
                                     hx-target="#mainContent"
                                     hx-swap="outerHTML"
+                                    hx-include="#user"
                                     aria-disabled="true">
                                 Library</a>
                             </li>
@@ -60,7 +61,8 @@
                                     <li><a class="dropdown-item"
                                            hx-get="/start-review"
                                            hx-target="#mainContent"
-                                           hx-swap="outerHTML">
+                                           hx-swap="outerHTML"
+                                           hx-include="#user">
                                         Start new review</a></li>
                                 </ul>
                             </li>
