@@ -5,7 +5,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
-from .backend.data import AppData, ReviewProcess, User, Album
+from .backend.data import AlbumReview, AppData, ReviewProcess, User, Album
 from .backend.usecases import review_process, search
 
 appdata = AppData([], [])
@@ -167,6 +167,24 @@ async def join_review_process(
         request=request,
         name="reviewProcess.html",
         context={"review_process": process, "username": user},
+    )
+
+
+@api.post("/album-review/{id}")
+def review_album(
+    request: Request, id: str, user: str = Form(...), processID: str = Form(...)
+):
+    person: User = search.search_users(appdata, user)[0]
+    process = search.search_review_processes(appdata, UUID(processID))
+    if process is not None:
+        review = search.search_album_review(process, UUID(id))
+    else:
+        review = None
+
+    return templates.TemplateResponse(
+        request=request,
+        name="albumReview.html",
+        context={"username": user, "review_process": process, "review": review},
     )
 
 

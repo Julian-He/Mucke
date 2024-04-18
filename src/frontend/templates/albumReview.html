@@ -1,12 +1,38 @@
-<link href="../css/review.css" rel="stylesheet"/>
+<style>
+.rating-input {
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute !important;
+  white-space: nowrap;
+  width: 1px;
+}
+
+svg {
+  fill: white !important;
+  height: 2em;
+  width: 2em;
+}
+
+svg:not(label:has(.rating-input:checked) ~ label:has(svg) svg) {
+    fill: #060908 !important;
+}
+</style>
 
 <div class="container-fluid d-flex flex-grow-1 align-items-center"
      id="mainContent">
 
+    <div hidden="true" id="data">
+        <input type="hidden" id="processID" name="processID" value="{{ review_process.id }}"/>
+        <input id="user" type="hidden" name="user" value="{{ username }}"/>
+    </div>
+
     <div class="col-md-4">
         <div class="card d-flex flex-grow-1 border-0 m-3 text-bg-primary">
-            <h4 class="card-title m-2">{{ title }}</h4>
-            <p class="card-text m-2">{{ artist }} - {{ year }}</p>
+            <h4 class="card-title m-2">{{ review.album.title }}</h4>
+            <p class="card-text m-2">{{ review.album.artist }}</p>
 
             <div class="container-fluid d-flex flex-grow-1 justify-content-end p-3"
                     id="ratingContainer">
