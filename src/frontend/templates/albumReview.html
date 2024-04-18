@@ -26,6 +26,7 @@ svg:not(label:has(.rating-input:checked) ~ label:has(svg) svg) {
 
     <div hidden="true" id="data">
         <input type="hidden" id="processID" name="processID" value="{{ review_process.id }}"/>
+        <input type="hidden" id="reviewID" name="reviewID" value="{{ review.id }}"/>
         <input id="user" type="hidden" name="user" value="{{ username }}"/>
     </div>
 
@@ -131,8 +132,9 @@ svg:not(label:has(.rating-input:checked) ~ label:has(svg) svg) {
         <div class="row m-3">
             <button class="btn btn-primary"
                 hx-post="/submit-review"
+                hx-target="#mainContent"
                 hx-swap="outerHTML"
-                hx-include=".rating, [name='writtenReview']">
+                hx-include=".rating, [name='writtenReview'], #data">
                 Submit Review</button>
         </div>
     </div>

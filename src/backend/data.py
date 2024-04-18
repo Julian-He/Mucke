@@ -24,6 +24,15 @@ class User:
     name: str
     reviews: List[Review]
 
+    def __eq__(self, value: object) -> bool:
+        if type(value) is User:
+            return self.name is value.name
+        else:
+            return False
+
+    def __hash__(self) -> int:
+        return hash(str(self))
+
 
 @dataclass
 class Rating:
