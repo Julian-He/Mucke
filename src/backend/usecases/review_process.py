@@ -13,3 +13,9 @@ def add_user(appdata: AppData, process_id: UUID, user: User) -> None:
     for process in appdata.review_processes:
         if process.id == process_id:
             process.participants.append(user)
+
+
+def join_review(appdata: AppData, process_id: UUID, user: User, album: Album) -> None:
+    for process in appdata.review_processes:
+        if process.id == process_id:
+            process.reviews.append(AlbumReview(album, user, {}))

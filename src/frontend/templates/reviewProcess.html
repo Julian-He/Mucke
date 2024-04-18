@@ -3,8 +3,9 @@
 <div id="mainContent"
      class="container-fluid d-flex flex-grow-1 flex-column">
 
-    <div hidden="true" id="processID">
+    <div hidden="true" id="data">
         <input type="hidden" id="processID" name="processID" value="{{ review_process.id }}"/>
+        <input id="user" type="hidden" name="user" value="{{ username }}"/>
     </div>
 
     <div class="row">
@@ -57,9 +58,9 @@
 
         <div id="albumCarousel" class="carousel slide m-3 w-auto">
             <div class="carousel-inner">
-                <div class="carousel-item active">
 
-                    {% for album_review in review_process.reviews %}
+                {% for album_review in review_process.reviews %}
+                <div class="carousel-item active">                    
                     <div class="card text-bg-primary">
                         <div class="card-body m-2 position-relative">
                             <h4 class="card-title p-2">{{ album_review.album.title }}</h4>
@@ -70,10 +71,10 @@
                                     hx-swap="outerHTML">
                             Review</button>
                         </div>
-                    </div>
-                    {% endfor %}
-                    
+                    </div>                  
                 </div>
+                {% endfor %}
+
             </div>
         </div>
 

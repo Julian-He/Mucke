@@ -1,8 +1,7 @@
 from uuid import UUID
-import uvicorn
 from typing import List
-from fastapi import FastAPI, HTTPException, Request, Form
-from fastapi.responses import FileResponse, HTMLResponse
+from fastapi import FastAPI, Request, Form
+from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
@@ -75,7 +74,7 @@ async def start_review_process(
     return templates.TemplateResponse(
         request=request,
         name="reviewProcess.html",
-        context={"review_process": review_proc},
+        context={"review_process": review_proc, "username": user},
     )
 
 
@@ -99,7 +98,8 @@ async def add_user_to_review(
         request=request,
         name="reviewProcess.html",
         context={
-            "review_process": search.search_review_processes(appdata, UUID(processID))
+            "review_process": search.search_review_processes(appdata, UUID(processID)),
+            "username": userName,
         },
     )
 
@@ -122,9 +122,51 @@ async def reviews(request: Request, user: str):
 
 
 @api.post("/review/{review_id}", response_class=HTMLResponse)
-async def view_review(request: Request, review_id: str):
+async def view_review(request: Request, review_id: str, user: str = Form(...)):
+    process = search.search_review_processes(appdata, UUID(review_id))
+    person: User = search.search_users(appdata, user)[0]
+    if process is not None:
+        have_already_suggested: List[User] = [
+            review.suggested_by for review in process.reviews
+        ]
+    else:
+        have_already_suggested: List[User] = []
+
+    if person in have_already_suggested:
+        return templates.TemplateResponse(
+            request=request,
+            name="reviewProcess.html",
+            context={"review_process": process, "username": user},
+        )
+    else:
+        return templates.TemplateResponse(
+            request=request,
+            name="joinReview.html",
+            context={
+                "username": user,
+                "process_id": review_id,
+            },
+        )
+
+
+@api.post("/join-review-process", response_class=HTMLResponse)
+async def join_review_process(
+    request: Request,
+    user: str = Form(...),
+    process_id: str = Form(...),
+    album: str = Form(...),
+    artist: str = Form(...),
+):
+    process = search.search_review_processes(appdata, UUID(process_id))
+    person: User = search.search_users(appdata, user)[0]
+    release: Album = Album(album, artist)
+
+    review_process.join_review(appdata, UUID(process_id), person, release)
+
     return templates.TemplateResponse(
-        request=request, name="startReview.html", context={"username": "test"}
+        request=request,
+        name="reviewProcess.html",
+        context={"review_process": process, "username": user},
     )
 
 

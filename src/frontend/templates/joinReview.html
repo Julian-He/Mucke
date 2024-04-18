@@ -1,0 +1,33 @@
+<div id="mainContent"
+     class="container-fluid d-flex flex-column flex-grow-1">
+
+    <div hidden="True">
+        <input id="user" type="hidden" name="user" value="{{ username }}"/>
+        <input id="process_id" type="hidden" name="process_id" value="{{ process_id }}">
+    </div>
+
+    <div class="row container-fluid d-flex flex-grow-1 align-items-center justify-content-center">
+        <div class="col-md-5">
+            <form id="albumPick">
+                <label for="album" class="form-label m-1 text-white">Album</label>
+                <input type="text" id="album" name="album" class="form-control">
+
+                <label for="artist" class="form-label m-1 text-white">Artist</label>
+                <input type="text" id="artist" name="artist" class="form-control">
+            </form>
+        </div>
+    </div>
+
+    <div class="row p-2 d-flex justify-content-center align-items-center">
+    <div class="col-sm-4 d-flex justify-content-center">
+        <button class="btn btn-primary"
+                hx-post="/join-review-process"
+                hx-target="#mainContent"
+                hx-swap="outerHTML"
+                hx-include="#albumPick, #user, #process_id">
+            Join Review
+        </button>
+    </div>
+    </div>
+
+</div>
