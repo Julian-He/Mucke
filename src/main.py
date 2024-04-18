@@ -5,14 +5,12 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
-from .backend.data import AlbumReview, AppData, ReviewProcess, User, Album
-from .backend.usecases import review_process, search, review
+from backend.data import AlbumReview, AppData, ReviewProcess, User, Album
+from backend.usecases import review_process, search, review
 
 appdata = AppData([], [])
 api = FastAPI()
-templates: Jinja2Templates = Jinja2Templates(
-    "C:\\Users\\Julian\\Desktop\\Mucke\\src\\frontend\\templates"
-)
+templates: Jinja2Templates = Jinja2Templates("./frontend/templates")
 
 
 @api.get("/login", response_class=HTMLResponse)
@@ -220,7 +218,5 @@ def submit_review(
 api.mount("/frontend", api)
 api.mount(
     "/",
-    StaticFiles(
-        directory="C:\\Users\\Julian\\Desktop\\Mucke\\src\\frontend", html=True
-    ),
+    StaticFiles(directory="./frontend", html=True),
 )
