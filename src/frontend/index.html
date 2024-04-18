@@ -36,7 +36,7 @@
                             <li class="nav-item">
                                 <a class="nav-link disabled"
                                     id="libraryNav"
-                                    hx-get="/library"
+                                    hx-post="/library"
                                     hx-trigger="click"
                                     hx-target="#mainContent"
                                     hx-swap="outerHTML"
@@ -57,14 +57,14 @@
 
                                 <ul class="dropdown-menu" aria-labelledby="reviewDropdown">
                                     <li><a class="dropdown-item"
-                                           hx-get="/reviews"
+                                           hx-post="/reviews"
                                            hx-target="#mainContent"
                                            hx-swap="outerHTML"
                                            hx-include="#user">
                                         Your reviews</a></li>
                                     <li><a class="dropdown-divider"></a></li>
                                     <li><a class="dropdown-item"
-                                           hx-get="/start-review"
+                                           hx-post="/start-review"
                                            hx-target="#mainContent"
                                            hx-swap="outerHTML"
                                            hx-include="#user">

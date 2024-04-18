@@ -22,17 +22,16 @@ async def root(request: Request):
     )
 
 
-@api.get("/library", response_class=HTMLResponse)
-async def library(request: Request):
-    html_content = """
-    <div class="container-md" id="mainContent">      
-        <ul>
-            <li>Album1</li>
-            <li>Album2</li>
-        <ul>
-    </div>
-    """
-    return HTMLResponse(html_content)
+@api.post("/library", response_class=HTMLResponse)
+async def library(request: Request, user: str = Form(...)):
+    person = search.search_users(appdata, user)[0]
+    reviews = search.all_reviews_of_user(appdata, person)
+
+    return templates.TemplateResponse(
+        request=request,
+        name="library.html",
+        context={"userName": user, "reviews": reviews},
+    )
 
 
 @api.post("/homepage", response_class=HTMLResponse)
@@ -51,8 +50,8 @@ async def login(request: Request, name: str = Form(...)):
         )
 
 
-@api.get("/start-review", response_class=HTMLResponse)
-async def start_review(request: Request, user: str):
+@api.post("/start-review", response_class=HTMLResponse)
+async def start_review(request: Request, user: str = Form(...)):
     return templates.TemplateResponse(
         request=request,
         name="startReview.html",
@@ -104,8 +103,8 @@ async def add_user_to_review(
     )
 
 
-@api.get("/reviews", response_class=HTMLResponse)
-async def reviews(request: Request, user: str):
+@api.post("/reviews", response_class=HTMLResponse)
+async def reviews(request: Request, user: str = Form(...)):
     person: User = search.search_users(appdata, user)[0]
     return templates.TemplateResponse(
         request=request,
@@ -172,7 +171,10 @@ async def join_review_process(
 
 @api.post("/album-review/{id}", response_class=HTMLResponse)
 def review_album(
-    request: Request, id: str, user: str = Form(...), processID: str = Form(...)
+    request: Request,
+    id: str,
+    user: str = Form(...),
+    processID: str = Form(...),
 ):
     person: User = search.search_users(appdata, user)[0]
     process = search.search_review_processes(appdata, UUID(processID))
@@ -203,13 +205,15 @@ def submit_review(
     )
 
     process = search.search_review_processes(appdata, UUID(processID))
+    if process is not None:
+        rev = search.search_album_review(process, UUID(reviewID))
+    else:
+        rev = None
+
     return templates.TemplateResponse(
         request=request,
-        name="reviewProcess.html",
-        context={
-            "review_process": process,
-            "username": user,
-        },
+        name="albumReview.html",
+        context={"review_process": process, "username": user, "review": rev},
     )
 
 

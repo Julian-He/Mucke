@@ -24,3 +24,13 @@ def search_album_review(process: ReviewProcess, id: UUID) -> AlbumReview | None:
     for review in process.reviews:
         if review.id == id:
             return review
+
+
+def all_reviews_of_user(appdata: AppData, user: User) -> List[AlbumReview]:
+    result: List[AlbumReview] = []
+
+    for process in appdata.review_processes:
+        if user in process.participants:
+            result += process.reviews
+
+    return result
