@@ -1,4 +1,4 @@
-Programm starten:
+Programm installieren und starten:
 
 1. Repo klonen und in den Mucke-Ordner navigieren
 
